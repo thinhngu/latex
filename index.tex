@@ -1,0 +1,75 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\graphicspath{{./img/}}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\begin{document}
+\title{Paraxial Approximation for Stormtroopers}
+
+\author{Darth Vader}
+
+% hide date and abstract heading
+\date{}
+
+\maketitle
+
+\begin{abstract}
+We propose a new method to approximate the trajectory of a projectile expelled
+from a firearm. Empirical tests show that this new method is sufficient for
+targets located at a maximal distance of a single meter.
+\end{abstract}
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+	\vspace{-15pt}
+	\captionsetup{
+	        format=plain,
+	        font=footnotesize
+	}
+	\begin{center}
+	\def\svgwidth{\linewidth}
+	\input{img/paraxialapprox.pdf_tex}
+	\caption{Geometrische Interpretation der Kleinwinkelnäherung. Für kleine
+	Winkel ist $y\approx \theta$.}
+	\label{fig:paraxialapprox}
+	\end{center}
+	\vspace{-20pt}
+\end{wrapfigure}
+
+Die \textit{paraxiale Approximation} ist lineare Approximation der Trajektorie,
+die besonders für kleine Winkel geeignet ist.
+
+% Geometrische/Anschauliche Definition
+Anschaulich besagt diese, dass für kleine Winkel $|\theta|$, die Bogenlänge auf
+dem Einheitskreis kaum von der Höhe $h$ des Steigungsdreiecks abweicht.
+Abbildung~\ref{fig:paraxialapprox} demonstriert diesen Zusammenhang. Es gilt
+also $\sin(x) \approx x$ für $|x| \ll 1$.
+
+% Zusammenhang mit der Taylorreihe
+Analytisch erhält man diesen Zusammenhang aus der Taylorreihe
+$\sum_{n=0}^\infty  \frac{f^{(n)}(a)}{n!} (x-a)^n$, welche für die
+Sinusfunktion und die Entwicklungsstelle $a=0$ zu $$
+sin(x) = \sum_{n=0}^\infty (-1)^n \frac{x^{2n+1}}{(2n+1)!} = x - \frac{x^3}{6} + \frac{x^5}{120} - \cdots
+$$ auswertet. Insbesondere sei angemerkt, dass alle Monome mit geradem
+Exponenten entfallen, da $(\pm sin(a := 0))' = 0$. Die Kleinwinkelnäherung ergibt
+sich, indem in der Taylorentwicklung alle Monome mit einem Grad $g > 1$
+vernachlässigt werden.
+
+% Beliebige präzision
+Mittels des Quotientenkriterums folgt
+\begin{align*}
+&\lim_{n \to \infty} \left| (-1)^{n+1} \frac{x^{2(n+1)+1}}{(2(n+1)+1)!} \bigg/ (-1)^n \frac{x^{2n+1}}{(2n+1)!} \right|\\
+                   =& \lim_{n \to \infty} \left| \frac{(2n+1)!}{(2n+3)!} x^2\right|\\
+		   =& \lim_{n \to \infty} \left| \frac{1}{(2n+2)(2n+3)} x^2\right|\\
+		   =&\enskip 0\text{.} %\blacksquare
+\end{align*}
+Der Konvergenzradius der Taylorreihe für $\sin(x)$ ist also unendlich. Dies
+bedeutet, dass $\sin(x)$ ausgehend von jeder Entwicklungsstelle $a$ beliebig
+durch Hinzunahme von Monomen höheren Grades in die Taylorreihe approximiert
+werden kann. 
+
+\end{document}
