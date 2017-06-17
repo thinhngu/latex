@@ -1,7 +1,7 @@
 dist: trusty
 sudo: requires
 before_install:
-  - sudo apt-get -qq update  sudo apt-get install -y --no install-recommends textlive-latex-recommended textlive-latex-recommended textlive-latex-extra
+  - sudo apt-get -qq update && sudo apt-get install -y --no install-recommends textlive-latex-recommended textlive-latex-recommended textlive-latex-extra latex-xcolor
 script:
   - mkdir build
   - pdflatex -interaction=nonstopmode -halt-on-error -output-directory build index.tex &&
@@ -11,6 +11,8 @@ script:
 after_success:
   - mkdir deploy
   - cp build/*.pdf deploy/
+after_failure:
+  - cat build/index.log
 deploy:
   provider: pages
   github_token: $GITHUB_TOKEN
